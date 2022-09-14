@@ -76,15 +76,23 @@
                         <li class="nav-item dropdown">
 
                         @if(Auth::user()->role->name === 'Admin')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Add User') }}</a>
-                            </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>
+                        </li>
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('restaurants.index') }}">{{ __('Restaurants') }}</a>
                             </li>
 
                         @endif
+
+                        @if(Auth::user()->role->name === 'Employee')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('orders.index') }}">{{ __('Orders') }}</a>
+                            </li>
+                        @endif
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('menu_items.index') }}">{{ __('Menus') }}</a>
                         </li>
