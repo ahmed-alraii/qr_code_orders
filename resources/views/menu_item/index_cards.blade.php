@@ -7,14 +7,13 @@
 
     <div class="container mt-3">
 
-        <h2 class="text-center mb-5">{{ __('Menu Items') }} {{__('For')}}  {{$restaurant_name}} </h2>
+        <h2 class="text-center mb-5 mt-3">{{ __('Menu Items') }} {{__('For')}}  {{$restaurant_name}} </h2>
 
                 @if(session('message'))
                     <div class="alert alert-success text-center">
                         {{session('message')}}
                     </div>
                 @endif
-
 
         <div class="row">
             <div>
@@ -34,9 +33,13 @@
                    <div class="card-body text-center">
                        Total Price : {{ number_format( $total , 3) }}
                       <div class="mt-3">
-                          <form method="POST" action="send_order" >
+                          <form method="POST" action="{{route('orders.store')}}" >
                               @csrf
-                             <button type="submit" class="btn btn-primary"> Send Order</button>
+                              <input  type="hidden" name="order_status_id" value="1" /> {{-- Status : New  --}}
+                              <input  type="hidden" name="table_number" value="{{base64_decode(request()->query('table_number'))}}" />
+                              <input  type="hidden" name="restaurant_id" value="{{request()->query('restaurant_id')}}" />
+                              <input  type="hidden" name="cart[]" value="{{$cart}}" />
+                              <button type="submit" class="btn btn-primary"> Send Order</button>
                           </form>
                       </div>
                </div>
@@ -52,7 +55,7 @@
                         </div>
                         <div class="card-body">
                             <img class="mb-3" height="200" width="100%" src="{{ Storage::url($record->image)}}"/>
-                            <p> Price : {{$record->price}} </p>
+                            <p> Price : {{number_format($record->price , 3)}} </p>
 
                             @if($cart->where('id' , $record->id)->count())
                                 <form action="{{route('cart_remove')}}" method="POST">

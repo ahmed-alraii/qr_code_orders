@@ -16,6 +16,10 @@ class MenuItemController extends Controller
     {
         $records = MenuItem::all();
 
+        if(auth()->user()->role->name === 'Employee'){
+           $restaurant = $this->getEmployeeRestaurant()->first();
+            $records = MenuItem::where('restaurant_id' , $restaurant->id)->get();
+        }
 
         return view('menu_item.index' , compact('records' ));
     }
@@ -38,7 +42,19 @@ class MenuItemController extends Controller
     public function create()
     {
         $restaurants = Restaurant::all();
+
+        if(auth()->user()->role->name === 'Employee'){
+            $restaurants = $this->getEmployeeRestaurant();
+        }
+
         return view('menu_item.create' , compact('restaurants'));
+    }
+
+    private function getEmployeeRestaurant() {
+      return Restaurant::with('users')
+            ->whereHas('users', function($query) {
+                $query->where('user_id', auth()->id() );
+            })->get();
     }
 
 
