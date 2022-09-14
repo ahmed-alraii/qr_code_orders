@@ -17,41 +17,6 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
-    public function addUser(Request $request)
-    {
-        $data = $request->all();
-        $this->validator($data);
-        $user = $this->create($data);
-        $restaurant = Restaurant::findOrFail($data['restaurant_id']);
-        $restaurant->users()->attach($user);
-        return redirect()->route('register')->with(['message' => 'User Added']);
-    }
-
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role_id' => ['required']
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role_id' => $data['role_id']
-        ]);
-    }
 
     public function showQrCodeForm()
     {
