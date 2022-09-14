@@ -37,7 +37,7 @@
                             <input type="hidden" name="id" value="{{ $record->id }}">
                             <tr>
                                 <td>{{ $record->name }}</td>
-                                <td>{{ $record->price }}</td>
+                                <td>{{ number_format($record->price , 3) }}</td>
                                 <td>
                                     <img width="100" height="100" src="{{ Storage::url($record->image)}}"/>
                                 </td>
