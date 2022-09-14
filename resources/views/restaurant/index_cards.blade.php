@@ -6,6 +6,12 @@
 
         <h2 class="text-center mb-5">{{ __('Restaurants') }} </h2>
 
+        @if(session('message'))
+            <div class="alert alert-success text-center">
+                {{session('message')}}
+            </div>
+        @endif
+
         <div class="row mb-3">
             @foreach($records as $record)
                 <div class="col-sm-3 mb-3">
