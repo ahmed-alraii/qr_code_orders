@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+
+    <div class="container">
+        <a class="btn btn-success mt-5" href="{{ route('users.index') }}">{{ __('Back') }}</a>
+    </div>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Add User') }}</div>
-
-                @if(\Illuminate\Support\Facades\Session::has('message'))
-                    <div class="alert alert-success text-center">{{ \Illuminate\Support\Facades\Session::get('message') }}</div>
-                @endif
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('add_user') }}">
@@ -94,7 +95,7 @@
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Submit') }}
                                 </button>
                             </div>
                         </div>
@@ -105,7 +106,7 @@
     </div>
 </div>
 @endsection
-<script src="vendor/jquery/jquery.min.js"></script>
+<script src="{{asset("vendor/jquery/jquery.min.js")}}"></script>
 <script>
 
     $(document).ready(function (){
