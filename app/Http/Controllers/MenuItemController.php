@@ -91,26 +91,20 @@ class MenuItemController extends Controller
         return redirect()->back()->withInput();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\MenuItem  $munuItem
-     * @return \Illuminate\Http\Response
-     */
-    public function show(MenuItem $munuItem)
+    public function show(MenuItem $menuItem)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\MenuItem  $munuItem
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MenuItem $munuItem)
+
+    public function edit(MenuItem $menuItem)
     {
-        //
+        $restaurants = Restaurant::all();
+
+        if(auth()->user()->role->name === 'Employee'){
+            $restaurants = $this->getEmployeeRestaurant();
+        }
+        return view('menu_item.edit' , ['record' => $menuItem , 'restaurants' => $restaurants]);
     }
 
     /**
