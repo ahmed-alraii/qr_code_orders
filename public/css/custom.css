@@ -1,0 +1,16 @@
+/* your styles go here */
+.alertify .ajs-footer .ajs-buttons.ajs-primary .ajs-button {
+    margin: 4px;
+    border-radius: 5px;
+    color: white;
+    border: solid white 1px;
+}
+
+.ajs-ok {
+    background-color: #52c57e;
+    border: solid #52c57e 1px;
+}
+.ajs-cancel {
+    background-color: #be4414;
+    border: solid #be4414 1px;
+}
