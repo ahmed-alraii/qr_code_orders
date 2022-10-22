@@ -41,12 +41,7 @@ class MenuItemController extends Controller
 
     public function create()
     {
-        $restaurants = Restaurant::all();
-
-        if(auth()->user()->role->name === 'Employee'){
-            $restaurants = $this->getEmployeeRestaurant();
-        }
-
+        $restaurants = $this->getRestaurants();
         return view('menu_item.create' , compact('restaurants'));
     }
 
@@ -101,12 +96,17 @@ class MenuItemController extends Controller
 
     public function edit(MenuItem $menuItem)
     {
-        $restaurants = Restaurant::all();
+        $restaurants = $this->getRestaurants();
+        return view('menu_item.edit' , ['record' => $menuItem , 'restaurants' => $restaurants]);
+    }
 
+    public function getRestaurants()
+    {
+        $restaurants = Restaurant::all();
         if(auth()->user()->role->name === 'Employee'){
             $restaurants = $this->getEmployeeRestaurant();
         }
-        return view('menu_item.edit' , ['record' => $menuItem , 'restaurants' => $restaurants]);
+        return $restaurants;
     }
 
     /**
