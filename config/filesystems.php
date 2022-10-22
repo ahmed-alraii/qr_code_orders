@@ -82,4 +82,6 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
+    'menu_items_path' => 'menu_items/'
+
 ];

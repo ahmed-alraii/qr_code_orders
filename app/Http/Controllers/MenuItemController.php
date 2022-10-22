@@ -74,7 +74,9 @@ class MenuItemController extends Controller
                     return redirect()->back()->withInput();
                 }
                 $image_url = Storage::putFile($folder, $image);
-                $data['image'] = $image_url;
+                $image_url_array = explode('/' , $image_url);
+                $image_name = $image_url_array[2];
+                $data['image'] = $image_name;
             }
         }
 
