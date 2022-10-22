@@ -40,7 +40,7 @@
                                 <td>{{ $record->name }}</td>
                                 <td>{{ number_format($record->price , 3) }}</td>
                                 <td>
-                                    <img width="100" height="100" src="{{ Storage::url($record->image)}}"/>
+                                    <img width="100" height="100" src="{{  Storage::url( config('filesystems.menu_items_path') . $record->image)}}"/>
                                 </td>
                                 <td>{{ $record->restaurant->name }}</td>
                                 <td>
