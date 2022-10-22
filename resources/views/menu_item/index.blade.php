@@ -23,6 +23,7 @@
                         <th> {{ __('Name') }} </th>
                         <th>{{ __('Price') }} </th>
                         <th>{{ __('Image') }} </th>
+                        <th>{{ __('Restaurant') }} </th>
                         <th>{{ __('Action') }} </th>
                     </tr>
                     </thead>
@@ -41,18 +42,19 @@
                                 <td>
                                     <img width="100" height="100" src="{{ Storage::url($record->image)}}"/>
                                 </td>
+                                <td>{{ $record->restaurant->name }}</td>
                                 <td>
                                     <a href="{{ route('menu_items.edit', ['menu_item' => $record->id]) }}"
                                        class="btn btn-warning btn-sm text-light "> {{ __('Edit') }} </a>
-                                    <a href="{{ route('menu_items.show', ['menu_item' => $record->id]) }}"
-                                       class="btn btn-info btn-sm text-light "> {{ __('View') }} </a>
+{{--                                    <a href="{{ route('menu_items.show', ['menu_item' => $record->id]) }}"--}}
+{{--                                       class="btn btn-info btn-sm text-light "> {{ __('View') }} </a>--}}
 
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
                                             onclick=" event.preventDefault(); confirm('Are You Sure?')"
                                             class=" btn btn-danger btn-sm">
-                                        {{ __('Delete ') }} </button>
+                                        {{ __('Delete') }} </button>
 
                                 </td>
                             </tr>

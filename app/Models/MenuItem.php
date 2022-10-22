@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MenuItem extends Model
 {
@@ -11,4 +12,9 @@ class MenuItem extends Model
     protected $fillable = [
         'name' , 'price' , 'image' , 'restaurant_id'
     ];
+
+    public function restaurant(): BelongsTo
+    {
+        return $this->belongsTo(Restaurant::class);
+    }
 }
