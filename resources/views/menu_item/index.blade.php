@@ -46,8 +46,8 @@
                                 <td>
                                     <a href="{{ route('menu_items.edit', ['menu_item' => $record->id]) }}"
                                        class="btn btn-warning btn-sm text-light "> {{ __('Edit') }} </a>
-                                    <a href="{{ route('menu_items.show', ['menu_item' => $record->id]) }}"
-                                       class="btn btn-info btn-sm text-light "> {{ __('View') }} </a>
+{{--                                    <a href="{{ route('menu_items.show', ['menu_item' => $record->id]) }}"--}}
+{{--                                       class="btn btn-info btn-sm text-light "> {{ __('View') }} </a>--}}
 
                                     @csrf
                                     @method('DELETE')
