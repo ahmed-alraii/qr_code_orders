@@ -56,7 +56,7 @@
 
             <div class="row justify-content-center">
                 <div class="form-group  col-3 mb-3 ">
-                    <input type="file" name="image" class="form-control">
+                    <input type="file" name="image" class="form-control" required>
                 </div>
             </div>
 
