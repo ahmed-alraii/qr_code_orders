@@ -23,9 +23,9 @@
         </div>
 
 
-        <form method="POST" action="{{route('menu_items.store')}}" enctype="multipart/form-data">
+        <form method="POST" action="{{route('menu_items.update' , $record->id)}}" enctype="multipart/form-data">
             @csrf
-
+             @method('PUT')
             <div class="row justify-content-center">
                 <div class="form-group  col-3 mb-3 ">
                     <input type="text" name="name" placeholder="{{ __('Name') }}" value="{{$record->name}}"
@@ -62,7 +62,7 @@
 
             <div class="row justify-content-center">
                 <div class="form-group text-center col-3 mb-3 ">
-                    <input type="submit" value="{{ __('Add') }} " class="btn btn-primary col-3 ">
+                    <input type="submit" value="{{ __('Update') }} " class="btn btn-primary col-3 ">
                 </div>
             </div>
 
