@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\MenuItem;
 use App\Models\Restaurant;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Helpers\StoreFileTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class MenuItemController extends Controller
 {
+    use StoreFileTrait;
+
     private string $path = 'public/images/menu_items/';
 
     public function __construct()
@@ -71,40 +74,12 @@ class MenuItemController extends Controller
     {
         $data = $request->all();
         $menuItem = MenuItem::create($data);
-        $image_name = $this->storeImage($request , $menuItem);
+        $image_name = $this->storeImage($request , $menuItem , $this->path);
         $menuItem->image = $image_name;
         $menuItem->save();
         return redirect()->route('menu_items.index');
     }
 
-    public function storeImage(Request $request , $menuItem){
-
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $ext = $image->getClientOriginalExtension();
-            $validExtensions = ['png', 'jpg', 'jpeg'];
-
-            if (!in_array($ext, $validExtensions)) {
-                Session::flash('message', 'Image Not Valid.');
-                Session::flash('alert-class', 'alert-danger');
-                return redirect()->back()->withInput();
-            }
-
-            if($request->method() === 'PUT'){
-                if($menuItem->image !== null){
-                    Storage::delete( $this->path . $menuItem->image);
-                }
-            }
-
-            $image_name = $menuItem->id. '.' . $ext;
-            $image->storeAs( $this->path, $image_name);
-
-
-        } else {
-            $image_name = $menuItem->image ?? 'default_img.png';
-        }
-        return $image_name;
-    }
 
     public function show(MenuItem $menuItem)
     {
@@ -120,7 +95,7 @@ class MenuItemController extends Controller
     public function update(Request $request, MenuItem $menuItem)
     {
         $data = $request->all();
-        $image_name = $this->storeImage($request , $menuItem);
+        $image_name = $this->storeImage($request , $menuItem , $this->path);
         $data['image'] = $image_name;
         $menuItem->update($data);
         return redirect()->route('menu_items.index');

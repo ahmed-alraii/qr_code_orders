@@ -82,6 +82,7 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
-    'menu_items_path' => 'images/menu_items/'
+    'menu_items_path' => 'images/menu_items/',
+    'restaurant_path' => 'images/restaurants/'
 
 ];

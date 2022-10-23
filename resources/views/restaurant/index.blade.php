@@ -38,18 +38,15 @@
                                 <td>{{ $record->name }}</td>
 
                                 <td>
-                                    <img width="100" height="100" src="{{ Storage::url($record->image)}}"/>
+                                    <img width="100" height="100" src="{{ Storage::url( config('filesystems.restaurant_path') . $record->image) }}"/>
                                 </td>
                                 <td>
                                     <a href="{{ route('restaurants.edit', ['restaurant' => $record->id]) }}"
                                        class="btn btn-warning btn-sm text-light "> {{ __('Edit') }} </a>
-                                    <a href="{{ route('restaurants.show', ['restaurant' => $record->id]) }}"
-                                       class="btn btn-info btn-sm text-light "> {{ __('View') }} </a>
-
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                            onclick=" event.preventDefault(); confirm('Are You Sure?')"
+                                            onclick=" return confirm('Are You Sure?')"
                                             class=" btn btn-danger btn-sm">
                                         {{ __('Delete ') }} </button>
 

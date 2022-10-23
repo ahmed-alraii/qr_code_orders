@@ -20,7 +20,7 @@
                             Name : {{$record->name}}
                         </div>
                         <div class="card-body">
-                            <img class="mb-3" height="200" width="100%" src="{{ Storage::url($record->image)}}"/>
+                            <img class="mb-3" height="200" width="100%" src="{{ Storage::url(config('filesystems.restaurant_path') . $record->image)}}"/>
 
                                 <form action="{{route('cart_remove')}}" method="POST">
                                     <input type="hidden" name="restaurant_id" value="{{$record->id}}">

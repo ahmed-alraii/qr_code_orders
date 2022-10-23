@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\StoreFileTrait;
+use App\Models\MenuItem;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -9,6 +11,9 @@ use Illuminate\Support\Facades\Storage;
 
 class RestaurantController extends Controller
 {
+    use StoreFileTrait;
+
+    private string $path = 'public/images/restaurants/';
 
     public function index()
     {
@@ -32,78 +37,43 @@ class RestaurantController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $image = $request->file('image');
-        $folder = 'public/restaurants';
-        if($image !== null) {
-            $ext = $image->getClientOriginalExtension();
-            $validExtensions = ['png', 'jpg', 'jpeg'];
-
-            if ($image->isFile()) {
-                if (!in_array($ext, $validExtensions)) {
-                    Session::flash('message', 'Image Not Valid.');
-                    Session::flash('alert-class', 'alert-danger');
-                    return redirect()->back()->withInput();
-                }
-                $image_url = Storage::putFile($folder, $image);
-                $data['image'] = $image_url;
-            }
-        }
-
-        if($image === null){
-            $data['image'] = $folder . 'default_img.jpg';
-        }
-
-        $res =  Restaurant::create($data);
-
-        if($res){
-            return redirect()->route('restaurants.index');
-        }
-
-        return redirect()->back()->withInput();
+        $restaurant =  Restaurant::create($data);
+        $image_name = $this->storeImage($request , $restaurant , $this->path);
+        $restaurant->image = $image_name;
+        $restaurant->save();
+        return redirect()->route('restaurants.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Restaurant  $restaurant
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Restaurant $restaurant)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Restaurant  $restaurant
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Restaurant $restaurant)
     {
-        //
+
+        return view('restaurant.edit', ['record' => $restaurant]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Restaurant  $restaurant
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Restaurant $restaurant)
     {
-        //
+        $data = $request->all();
+        $image_name = $this->storeImage($request , $restaurant , $this->path);
+        $data['image'] = $image_name;
+        $restaurant->update($data);
+        return redirect()->route('restaurants.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Restaurant  $restaurant
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Restaurant $restaurant)
     {
-        //
+
+        if( $restaurant->image !== 'default_img.png'){
+            Storage::delete($this->path . $restaurant->image);
+        }
+
+        $restaurant->delete();
+        return redirect()->route('restaurants.index');
     }
 }
