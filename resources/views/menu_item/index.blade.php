@@ -52,7 +52,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                            onclick=" event.preventDefault(); confirm('Are You Sure?')"
+                                            onclick=" return confirm('Are You Sure?')"
                                             class=" btn btn-danger btn-sm">
                                         {{ __('Delete') }} </button>
 
