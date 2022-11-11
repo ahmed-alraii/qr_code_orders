@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MenuItem;
 use App\Models\Restaurant;
+use App\Models\Role;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Helpers\StoreFileTrait;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class MenuItemController extends Controller
     {
         $records = MenuItem::all();
 
-        if (auth()->user()->role->name === 'Employee') {
+        if (auth()->user()->role_id === Role::EMPLOYEE) {
             $restaurant = $this->getEmployeeRestaurant()->first();
             $records = MenuItem::where('restaurant_id', $restaurant->id)->get();
         }
@@ -60,7 +61,7 @@ class MenuItemController extends Controller
     public function getRestaurants()
     {
         $restaurants = Restaurant::all();
-        if (auth()->user()->role->name === 'Employee') {
+        if (auth()->user()->role_id === Role::EMPLOYEE) {
             $restaurants = $this->getEmployeeRestaurant();
         }
         return $restaurants;
