@@ -1,4 +1,11 @@
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+.navbar-light .navbar-brand {
+    color: rgba(0, 0, 0, 0.9);
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
 

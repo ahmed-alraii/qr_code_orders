@@ -6,11 +6,11 @@
       <div class="row">
 
         <h2 class="text-center">{{ __('Menu Items') }} </h2>
-
-        <div>
-            <a href="{{route('menu_items.create')}}" class="btn-primary btn btn-sm mb-2 "> {{ __('Add') }}</a>
+          @can('create' , \App\Models\MenuItem::class)
+        <div class="mb-3">
+            <a href="{{route('menu_items.create')}}" class="btn-dark btn btn-sm mb-2 "> {{ __('Add') }}</a>
         </div>
-
+          @endcan
       </div>
 
         <div class="row">

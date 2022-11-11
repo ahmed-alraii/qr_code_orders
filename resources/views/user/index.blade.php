@@ -7,8 +7,8 @@
 
         <h2 class="text-center">{{ __('Users') }} </h2>
 
-        <div>
-            <a href="{{route('register')}}" class="btn-primary btn btn-sm mb-2 "> {{ __('Add') }}</a>
+        <div class="mb-3">
+            <a href="{{route('register')}}" class="btn-dark btn btn-sm mb-2 "> {{ __('Add') }}</a>
         </div>
 
           @if(\Illuminate\Support\Facades\Session::has('message'))
@@ -42,7 +42,7 @@
                                 <td>{{ $record->role->name }}</td>
                                 <td>
                                     <a href="{{ route('users.edit', ['user' => $record->id]) }}"
-                                         class="btn btn-info btn-sm text-light "> {{ __('Edit') }} </a>
+                                         class="btn btn-warning btn-sm text-light "> {{ __('Edit') }} </a>
 
                                     @csrf
                                     @method('DELETE')

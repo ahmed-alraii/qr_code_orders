@@ -5,7 +5,11 @@
     <div class="container mt-0">
       <div class="row">
 
-        <h2 class="text-center mb-5">{{ __('New Orders') }} </h2>
+        <h2 class="text-center mb-5">
+            @if(auth()->user()->role->name === 'Employee')  {{ __('New') }}  @endif
+            @if(auth()->user()->role->name === 'Admin')  {{ __('All') }}  @endif
+            {{ __('Orders') }}
+        </h2>
 
       </div>
 
@@ -19,6 +23,7 @@
                         <th class="text-center"> {{ __('Id') }} </th>
                         <th class="text-center"> {{ __('Table Number') }} </th>
                         <th class="text-center"> {{ __('Items') }} </th>
+                        <th class="text-center"> {{ __('Status') }} </th>
                         <th class="text-center"> {{ __('Actions') }} </th>
                     </tr>
                     </thead>
@@ -30,6 +35,7 @@
                                 <td class="text-center">{{ $record->id }}</td>
                                 <td class="text-center">{{ $record->table_number }}</td>
                                 <td class="text-center">{{count($record->menuItems)}}</td>
+                                <td class="text-center">{{ $record->orderStatus->name}}</td>
                                 <td class="text-center">
 
                                     <a href="{{ route('orders.show', ['order' => $record->id]) }}"

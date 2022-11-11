@@ -7,10 +7,9 @@
 
         <h2 class="text-center">{{ __('Restaurants') }} </h2>
 
-        <div>
-            <a href="{{route('restaurants.create')}}" class="btn-primary btn btn-sm mb-2 "> {{ __('Add') }}</a>
-        </div>
-
+           <div class="mb-3">
+                <a href="{{route('restaurants.create')}}" class="btn-dark btn btn-sm mb-2 "> {{ __('Add') }}</a>
+            </div>
       </div>
 
         <div class="row">

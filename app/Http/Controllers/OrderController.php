@@ -11,14 +11,19 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(['auth' , 'is_employee']);
+    }
+
     public function index()
     {
-        $records = Order::all();
+        $records = Order::with('orderStatus')->get();
         if(auth()->user()->role->name === 'Employee'){
-            $restaurants = $this->getEmployeeRestaurant()->first();
+            $restaurants = $this->getEmployeeRestaurant();
             $records = Order::where('restaurant_id' , $restaurants->id)
                 ->where('order_status_id' , 1) // status : new order
-                ->get();
+                ->with('orderStatus')->get();
         }
 
         return view('order.index')->with(['records' => $records]);
@@ -38,7 +43,7 @@ class OrderController extends Controller
         return Restaurant::with('users')
             ->whereHas('users', function($query) {
                 $query->where('user_id', auth()->id() );
-            })->get();
+            })->get()->first();
     }
 
 
