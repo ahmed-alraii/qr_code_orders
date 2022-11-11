@@ -16,11 +16,6 @@ class MenuItemController extends Controller
 
     private string $path = 'public/images/menu_items/';
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $records = MenuItem::all();
@@ -57,6 +52,7 @@ class MenuItemController extends Controller
 
     public function create()
     {
+        $this->authorize('create' , MenuItem::class);
         $restaurants = $this->getRestaurants();
         return view('menu_item.create', compact('restaurants'));
     }
