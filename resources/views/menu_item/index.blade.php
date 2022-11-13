@@ -64,15 +64,18 @@
                     </tbody>
                 </table>
 
-
                 @if (count($records) === 0)
                     <div class="text-center">
                         <h4> {{ __('No Data') }} </h4>
                     </div>
                 @endif
             </div>
-
         </div>
+        @if(count($records) > 0)
+            <div class="mt-3">
+                {{$records->links()}}
+            </div>
+        @endif
 
     </div>
 @endsection

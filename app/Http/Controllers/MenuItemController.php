@@ -19,7 +19,7 @@ class MenuItemController extends Controller
 
     public function index()
     {
-        $records = MenuItem::all();
+        $records = MenuItem::paginate(5);
 
         if (auth()->user()->role_id === Role::EMPLOYEE) {
             $restaurant = $this->getEmployeeRestaurant()->first();
