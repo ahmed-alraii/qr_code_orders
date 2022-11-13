@@ -9,3 +9,22 @@ a:hover{
     text-decoration: none;
 }
 
+.page-item.active .page-link {
+    color: #fff;
+    background-color: #25242d;
+    border-color: #18162d;
+}
+.page-link:hover {
+    z-index: 2;
+    color: #16151f;
+    background-color: #e9ecef;
+    border-color: #ddd;
+}
+.page-link {
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #1a182b;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
