@@ -23,7 +23,9 @@
                         <th> {{ __('Name') }} </th>
                         <th>{{ __('Price') }} </th>
                         <th>{{ __('Image') }} </th>
+                        @if(auth()->user()->role_id === App\Models\Role::ADMIN)
                         <th>{{ __('Restaurant') }} </th>
+                        @endif
                         <th>{{ __('Action') }} </th>
                     </tr>
                     </thead>
@@ -42,13 +44,12 @@
                                 <td>
                                     <img width="100" height="100" src="{{  Storage::url( config('filesystems.menu_items_path') . $record->image)}}"/>
                                 </td>
+                              @if(auth()->user()->role_id === App\Models\Role::ADMIN)
                                 <td>{{ $record->restaurant->name }}</td>
+                              @endif
                                 <td>
                                     <a href="{{ route('menu_items.edit', ['menu_item' => $record->id]) }}"
                                        class="btn btn-warning btn-sm text-light "> {{ __('Edit') }} </a>
-{{--                                    <a href="{{ route('menu_items.show', ['menu_item' => $record->id]) }}"--}}
-{{--                                       class="btn btn-info btn-sm text-light "> {{ __('View') }} </a>--}}
-
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
