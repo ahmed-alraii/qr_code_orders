@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <a class="btn btn-dark mt-5"
+        <a class="btn btn-primary mt-5"
            href="{{ route('restaurants_cards' , ['table_number' =>  base64_encode(1)]) }}">{{ __('Back') }}</a>
     </div>
 
@@ -26,7 +26,7 @@
                         <div class="card-body text-center">
                             Total Price : {{ number_format( $total , 3) }}
                             <div class="mt-3">
-                                <form method="POST" action="{{route('orders.store')}}">
+                                <form method="POST" action="{{route('orders.send_order')}}">
                                     @csrf
                                     <input type="hidden" name="order_status_id" value="1"/> {{-- Status : New  --}}
                                     <input type="hidden" name="table_number"
@@ -34,7 +34,7 @@
                                     <input type="hidden" name="restaurant_id"
                                            value="{{request()->query('restaurant_id')}}"/>
                                     <input type="hidden" name="cart[]" value="{{$cart}}"/>
-                                    <button type="submit" class="btn btn-secondary"> Send Order</button>
+                                    <button type="submit" class="btn btn-primary"> Send Order</button>
                                 </form>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
 
             <div class="col-sm-9 ">
                 @if(count($cart) > 0)
-                <p class="float-end bg-secondary p-3 text-white">
+                <p class="float-end bg-success p-3 text-white">
                     <i class="fa-xl fa-solid fa-cart-arrow-down"></i>
                     Cart : {{ $cart_count }}
                 </p>
@@ -79,7 +79,7 @@
                                         <div class="text-center col-2 mt-1">
 
                                             <button class="btn  btn-sm ">
-                                                <i class="fa-xl fa-solid fa-trash-can" ></i>
+                                                <i class="fa-xl fa-solid fa-trash-can text-danger" ></i>
                                             </button>
                                         </div>
                                     </div>
@@ -99,7 +99,7 @@
 
                                         <div class="text-center col-2 mt-1">
                                             <button class="btn btn btn-sm">
-                                                <i class="fa-xl fa-solid fa-cart-plus " ></i>
+                                                <i class="fa-xl fa-solid fa-cart-plus text-success" ></i>
                                             </button>
                                         </div>
                                     </div>

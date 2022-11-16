@@ -13,7 +13,7 @@ class OrderController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth' , 'is_employee']);
+
     }
 
     public function index()
@@ -47,21 +47,13 @@ class OrderController extends Controller
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Request $request)
+    public function sendOrder(Request $request)
     {
         $data= $request->all();
-
         $order = Order::create($data);
         $this->addOrderItems($order , $data);
         Cart::destroy();
         return redirect()->route('restaurants_cards' )->with('message' , 'Order Sent Successfully');
-
     }
 
     private function addOrderItems($order ,$data): void
