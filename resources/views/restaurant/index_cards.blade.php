@@ -24,7 +24,7 @@
                                  src="{{ Storage::url(config('filesystems.restaurant_path') . $record->image)}}"/>
                             <div class="row justify-content-center">
                                 <div class=" text-center mt-1 ">
-                                    <a class="non-decoration btn btn-secondary btn-sm"
+                                    <a class="non-decoration btn btn-primary btn-sm"
                                        href="{{route('menu_items_cards' ,
                                        ['restaurant_id' => $record->id , 'restaurant_name' => $record->name , 'table_number' => request()->query('table_number')])}}"
                                      >Menus</a>
