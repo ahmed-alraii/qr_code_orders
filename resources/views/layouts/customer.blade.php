@@ -76,7 +76,7 @@
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('restaurants_cards' , ['table_number' =>  base64_encode(1)]) }}">{{ __('Restaurant') }}</a>
+                        <a class="nav-link" href="{{ route('restaurants_cards' , ['table_number' =>  base64_encode(1)]) }}">{{ __('Restaurants') }}</a>
                     </li>
                 </ul>
             </div>
